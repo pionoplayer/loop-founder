@@ -1,0 +1,62 @@
+import time
+
+class Resource:
+    def __init__(self, name, initial_amount=0):
+        self.name = name
+        self.amount = initial_amount
+
+    def produce(self, amount):
+        self.amount += amount
+
+    def consume(self, amount):
+        if self.amount >= amount:
+            self.amount -= amount
+            return True
+        else:
+            return False
+
+class Game:
+    def __init__(self):
+        self.resources = []
+
+    def add_resource(self, resource):
+        self.resources.append(resource)
+
+    def display_resources(self):
+        print("Current Resources:")
+        for resource in self.resources:
+            print(f"{resource.name}: {resource.amount}")
+
+    def main_loop(self):
+        while True:
+            # Display current resources
+            self.display_resources()
+
+            # Simulate production
+            for resource in self.resources:
+                resource.produce(10)  # Change production rate as needed
+
+            # Simulate consumption
+            # Example: Food consumption
+            food = next((res for res in self.resources if res.name == "Food"), None)
+            if food:
+                food.consume(5)  # Change consumption rate as needed
+
+            # Add additional resource management logic here
+
+            time.sleep(1)  # Adjust tick rate as needed
+
+if __name__ == "__main__":
+    # Create resources
+    food = Resource("Food", 100)
+    wood = Resource("Wood", 50)
+    # Add more resources as needed
+
+    # Initialize game
+    game = Game()
+    game.add_resource(food)
+    game.add_resource(wood)
+    # Add more resources to the game as needed
+
+    # Start game loop
+    game.main_loop()
